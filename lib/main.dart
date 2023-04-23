@@ -33,10 +33,14 @@ class MyHomePage extends StatelessWidget {
       body: ChangeNotifierProvider<DataServices>(
         create: (context) => DataServices()..fetchData(),
         child: Center(
-          child: Consumer<DataServices>(
-              builder: (context, value, child) => value.isLoading
-                  ? const Text('Fetching Data')
-                  : Text(value.data!.length.toString())),
+          child: Consumer<DataServices>(builder: (context, value, child) {
+            return value.dataOption.fold(() => const Text('Fetching Data'),
+                (data) => Text(data.length.toString()));
+          }
+              // => value.isLoading
+              //     ? const Text('Fetching Data')
+              //     : Text(value.data!.length.toString())
+              ),
         ),
       ),
     );
