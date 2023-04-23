@@ -38,7 +38,7 @@ class MyHomePage extends StatelessWidget {
             builder: (BuildContext context, DataServices value, Widget? child) {
               return value.dataEO.fold(
                 () => const Text('Fetching Data'),
-                (dataE) => dataE.fold(
+                (Either<Unit, List<int>> dataE) => dataE.fold(
                   (Unit left) => const Text('Error...'),
                   (List<int> right) => Text(right.length.toString()),
                 ),
