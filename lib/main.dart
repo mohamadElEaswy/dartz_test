@@ -34,8 +34,10 @@ class MyHomePage extends StatelessWidget {
         create: (context) => DataServices()..fetchData(),
         child: Center(
           child: Consumer<DataServices>(builder: (context, value, child) {
-            return value.dataOption.fold(() => const Text('Fetching Data'),
-                (data) => Text(data.length.toString()));
+            return value.dataOption.fold(
+              () => const Text('Fetching Data'),
+              (data) => Text(data.length.toString()),
+            );
           }
               // => value.isLoading
               //     ? const Text('Fetching Data')
