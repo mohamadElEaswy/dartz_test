@@ -34,20 +34,17 @@ class MyHomePage extends StatelessWidget {
       body: ChangeNotifierProvider<DataServices>(
         create: (context) => DataServices()..fetchData(),
         child: Center(
-          child: Consumer<DataServices>(builder:
-                  (BuildContext context, DataServices value, Widget? child) {
-            return value.dataEO.fold(
-              () => const Text('Fetching Data'),
-              (dataE) => dataE.fold(
-                (Unit left) => const Text('Error...'),
-                (List<int> right) => Text(right.length.toString()),
-              ),
-            );
-          }
-              // => value.isLoading
-              //     ? const Text('Fetching Data')
-              //     : Text(value.data!.length.toString())
-              ),
+          child: Consumer<DataServices>(
+            builder: (BuildContext context, DataServices value, Widget? child) {
+              return value.dataEO.fold(
+                () => const Text('Fetching Data'),
+                (dataE) => dataE.fold(
+                  (Unit left) => const Text('Error...'),
+                  (List<int> right) => Text(right.length.toString()),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
