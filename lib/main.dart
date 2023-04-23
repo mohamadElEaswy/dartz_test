@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:dartz_test/data_layer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,10 +34,14 @@ class MyHomePage extends StatelessWidget {
       body: ChangeNotifierProvider<DataServices>(
         create: (context) => DataServices()..fetchData(),
         child: Center(
-          child: Consumer<DataServices>(builder: (context, value, child) {
-            return value.dataOption.fold(
+          child: Consumer<DataServices>(builder:
+                  (BuildContext context, DataServices value, Widget? child) {
+            return value.dataEO.fold(
               () => const Text('Fetching Data'),
-              (data) => Text(data.length.toString()),
+              (dataE) => dataE.fold(
+                (Unit left) => const Text('Error...'),
+                (List<int> right) => Text(right.length.toString()),
+              ),
             );
           }
               // => value.isLoading
